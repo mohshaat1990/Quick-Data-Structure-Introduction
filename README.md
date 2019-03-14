@@ -784,3 +784,38 @@ return false
 }
 }
 ```
+## Binary Search Tree Removing an Item 
+
+### Case 1: Remove Leaf node
+
+![Screen Shot 2019-03-15 at 1 07 07 AM](https://user-images.githubusercontent.com/11280137/54397322-be2f1d00-46be-11e9-85dc-c16f015c4ada.png)
+- Simply detaching the leaf node is enough. For non-leaf nodes however, there are extra steps to be taken.
+
+### Case 2: Nodes with one child
+
+![Screen Shot 2019-03-15 at 1 11 05 AM](https://user-images.githubusercontent.com/11280137/54397480-49101780-46bf-11e9-869c-0a42d763b2e3.png)
+
+When removing nodes with one child, you’ll need to reconnect that
+one child with the rest of the tree.
+
+ ### Case 3: Nodes with two children
+ 
+ ![Screen Shot 2019-03-15 at 1 13 36 AM](https://user-images.githubusercontent.com/11280137/54397577-a4daa080-46bf-11e9-8562-0c2ced08e658.png)
+
+
+-  Y ou have two child nodes (12 and 37) to reconnect, but the parent
+node only has space for one child. To solve this problem, you’ll
+implement a clever workaround by performing a swap.
+
+![Screen Shot 2019-03-15 at 1 15 32 AM](https://user-images.githubusercontent.com/11280137/54397647-d7849900-46bf-11e9-9dab-ca584a446ee9.png)
+
+-  When removing a node with two children, replace the node you
+removed with smallest node in its right subtree. Based on the rules of
+the BST, this is the leftmost node of the right subtree: 
+
+![Screen Shot 2019-03-15 at 1 17 03 AM](https://user-images.githubusercontent.com/11280137/54397698-0dc21880-46c0-11e9-8aaf-0ead70595c01.png)
+
+![Screen Shot 2019-03-15 at 1 17 38 AM](https://user-images.githubusercontent.com/11280137/54397723-229eac00-46c0-11e9-9740-5357722dda8a.png)
+
+
+
