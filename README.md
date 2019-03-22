@@ -842,7 +842,10 @@ the BST, this is the leftmost node of the right subtree:
 
 ![Screen Shot 2019-03-23 at 12 55 05 AM](https://user-images.githubusercontent.com/11280137/54857136-720b5a80-4d06-11e9-83f9-5f4250b61acf.png)
 
+
 - ## Heapify 
 - Removing an element requires a rearrange of the heap data structure. This is termed as heapifying.
 - For example, if you delete the root node of the heap. For that, we need to swap it with the lowest node with the root node and then check the heap property recursively throughout.
 
+![Screen Shot 2019-03-23 at 1 07 31 AM](https://user-images.githubusercontent.com/11280137/54857473-18a42b00-4d08-11e9-90f9-ee957d5451a1.png)
+![Screen Shot 2019-03-23 at 1 08 40 AM](https://user-images.githubusercontent.com/11280137/54857491-3bceda80-4d08-11e9-89c7-ad29b614238c.png)
