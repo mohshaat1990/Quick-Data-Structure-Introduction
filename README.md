@@ -20,6 +20,7 @@
 
 - ## Binary Search Tree
 
+- ## Heap
 
 # Introduction
 
@@ -817,72 +818,31 @@ the BST, this is the leftmost node of the right subtree:
 
 ![Screen Shot 2019-03-15 at 1 17 38 AM](https://user-images.githubusercontent.com/11280137/54397723-229eac00-46c0-11e9-9740-5357722dda8a.png)
 
-```swift
-public class MergeSort <Element: Comparable> {
+- # Heap (Reference RayWenderlish )
 
-public func mergeSort(_ array: [Element])-> [Element]{
-/* Recursion needs a base case, which you can also think of as an
-“exit condition”. In this case, the base case is when the array only
-has one element. */
-print(array)
-guard array.count > 1 else {
-return array
-}
-/*
-You’re now calling mergeSort on the left and right halves of the
-original array. As soon as you’ve split the array in half, you’ll try
-to split again.
-*/
-let middle = array.count / 2
-let left = mergeSort(Array(array[..<middle ]))
-let right = mergeSort(Array(array[middle...]))
-return merge(left, right)
-}
+- The Heap is a really neat data structure which allows for the prioritization of minimum or maximum values. 
+- It is somewhat similar to a Tree in how it’s structured with layers and nodes however it can be easily stored in an Array because it is linear in nature.
+- Heap can be either a max heap or a min heap.
+- In a max heap, the root node is the largest element and all the child nodes must be smaller than the parent. Min-heap works just the opposite way.
+- Children of a node at N would be positioned at 2n+1 and 2n+2 in a max heap.
+- in Heap has the fewest possible number of levels to contain all its nodes. Before a new level can be added, all the existing levels must be full.
 
-func merge(_ left: [Element], _ right: [Element] ) -> [Element]{
-/*
-The leftIndex and rightIndex variables track your progress as
-you parse through the two arrays.
-*/
-var leftIndex = 0
-var rightIndex = 0
-// The result array will house the combined array.
-var result: [Element] = []
-/*
-Starting from the beginning, you compare the elements in the
-left and right arrays sequentially. If you’ve reached the end of
-either array, there’s nothing else to compare.
-*/
-while leftIndex < left.count && rightIndex < right.count {
-let leftElement = left[leftIndex]
-let rightElement = right[rightIndex]
-/*
-The smaller of the two elements goes into the result array. If the
-elements were equal, they can both be added.
-*/
-if leftElement <= rightElement {
-result.append(leftElement)
-leftIndex += 1
-}
-if leftElement >= rightElement {
-result.append(rightElement)
-rightIndex += 1
-}
-}
-// append the rest to result array
-if leftIndex < left.count {
-result.append(contentsOf: left[leftIndex...])
-}
-if rightIndex < right.count {
-result.append(contentsOf: right[rightIndex...])
-}
-return result
-}
+![Screen Shot 2019-03-23 at 12 31 06 AM](https://user-images.githubusercontent.com/11280137/54856396-05429100-4d03-11e9-97b8-5e8b0ba0ee85.png)
+![Screen Shot 2019-03-23 at 12 32 20 AM](https://user-images.githubusercontent.com/11280137/54856437-2d31f480-4d03-11e9-83c0-604fca0e54e8.png)
 
-}
+- Every node in the heap is assigned an index. We start by assigning 0 to the root node, and then we iterate down through the levels, counting each node from left to right :
 
+![Screen Shot 2019-03-23 at 12 49 45 AM](https://user-images.githubusercontent.com/11280137/54856952-91ee4e80-4d05-11e9-99a0-66dd3f5f1ae1.png)
 
-let mergeSort = MergeSort<Int>()
-let arr = mergeSort.mergeSort([1,5,6,4,2,-1])
-print(arr)
-```
+-  If we then used those indices to make an array, with each element stored in its indexed position, it would look like this:
+
+![Screen Shot 2019-03-23 at 12 50 35 AM](https://user-images.githubusercontent.com/11280137/54857038-f6a9a900-4d05-11e9-93a5-f9ded328df80.png)
+
+- Given the node at index i, its left child node can be found at index 2i + 1 and its right child node can be found at index 2i + 2.
+
+![Screen Shot 2019-03-23 at 12 55 05 AM](https://user-images.githubusercontent.com/11280137/54857136-720b5a80-4d06-11e9-83f9-5f4250b61acf.png)
+
+- ## Heapify 
+- Removing an element requires a rearrange of the heap data structure. This is termed as heapifying.
+- For example, if you delete the root node of the heap. For that, we need to swap it with the lowest node with the root node and then check the heap property recursively throughout.
+
