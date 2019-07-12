@@ -411,7 +411,23 @@ tail = previous
 previous = next
 }
 }
+```
+### find index from end Linked List
 
+```swift
+mutating func findindexfromend(index: Int)-> Value? {
+var offset  = 0
+var next = head 
+var current = head 
+while(next != nil) {
+if (offset >= index) {
+current = current?.next 
+}
+offset = offset + 1
+next = next?.next
+}
+return current?.value
+}
 ```
 
 # Double Link List 
