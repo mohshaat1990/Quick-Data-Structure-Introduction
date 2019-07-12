@@ -387,6 +387,33 @@ return false
 }
 }
 ```
+### remove Duplicate LinkedList
+
+```swift
+mutating func removeDuplicates() {
+var current = head
+var previous = head
+var next = head
+while current != nil {
+next = next?.next
+if next == nil {
+current = current?.next
+next = current
+previous = current
+continue
+}
+if current?.value == next?.value {
+previous?.next = next?.next
+}
+if previous?.next == nil {
+tail = previous
+}
+previous = next
+}
+}
+
+```
+
 # Double Link List 
 
 a doubly linked list is a linked data structure that consists of a set of sequentially linked records called nodes. Each node contains three fields: two link fields (references to the previous and to the next node in the sequence of nodes) and one data field. The beginning and ending nodes' previous and next links, respectively, point to some kind of terminator, typically a sentinel node or null, to facilitate traversal of the list. If there is only one sentinel node, then the list is circularly linked via the sentinel node. It can be conceptualized as two singly linked lists formed from the same data items, but in opposite sequential orders.
