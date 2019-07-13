@@ -43,10 +43,16 @@ public struct LinkedList<Value: Equatable> {
             tail = head
         }
     }
+
     public mutating func append(value: Value) {
         let node = Node(value: value, next: nil)
+        if head == nil {
+            head = node
+            tail = node
+        } else {
         tail?.next = node
         tail = node
+        }
     }
     
     mutating func removeDuplicates() {

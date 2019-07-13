@@ -569,6 +569,38 @@ return newNode;
 return head
 }
 ```
+### Add Two linked List two Integers lists
+5 --->5 --->1
+(5 --->5)
+Result (0 --->1 --->2)
+```swift
+func addTwoLists (linkedList1 : LinkedList<Int>, linkedList2 : LinkedList<Int>) -> LinkedList<Int>{
+var current1 = linkedList1.head
+var current2 = linkedList2.head
+var sumLinkedList = LinkedList<Int>()
+var carry = 0
+while (current1 != nil || current2 != nil) {
+var total = carry
+if let current = current1 {
+total = total + current.value
+}
+if let current = current2 {
+total = total + current.value
+}
+if total >= 10 {
+total = total - 10
+carry = 1
+} else {
+carry = 0
+}
+current1 = current1?.next
+current2 = current2?.next
+print(total)
+sumLinkedList.append(value: total)
+}
+return sumLinkedList
+}
+```
 - # Tree
 
 - the tree is a data structure of profound importance . Trees are well-known as a non-linear data structure. They don’t store data in a linear way. They organize data hierarchically. It Solved alot of problems such as :
