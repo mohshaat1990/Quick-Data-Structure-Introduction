@@ -104,6 +104,76 @@ public struct Stack<T> {
 
 var stack = Stack(array:[1,2,3,4,5])
 ```
+### Descripe how you could use asingle array to implement three stacks
+
+```swift
+import Foundation
+
+struct TripleStack<Element> {
+
+private var numberOfStacks: Int = 3
+private var stackSize: Int = 0
+private var stack:[Element]
+private var topIndexies = [Int](repeating: 0, count: 3)
+
+init(stackSize: Int, initialValue: Element) {
+stack = [Element](repeating:initialValue, count: stackSize * numberOfStacks) 
+self.stackSize = stackSize
+for i in 0...numberOfStacks-1  {
+topIndexies[i] = i * stackSize 
+}
+}
+
+mutating func isEmpty(stackNumber: Int)-> Bool { 
+let startIndex = (stackNumber - 1) * stackSize
+guard topIndexies[stackNumber-1] == startIndex  else {
+return false 
+}   
+return true
+}
+
+mutating func isFull(stackNumber: Int)-> Bool { 
+let endIndex = (stackNumber - 1) * stackSize + stackSize
+guard topIndexies[stackNumber-1] == endIndex  else {
+return false 
+}   
+return true
+}
+
+mutating func push(item: Element,stackNumber: Int) {
+let endIndex = (stackNumber - 1) * stackSize + stackSize 
+guard topIndexies[stackNumber - 1] < endIndex else {
+print("cannot push to stack")
+return
+}
+topIndexies[stackNumber - 1] += 1
+stack [topIndexies[stackNumber - 1]] = item
+}
+
+mutating func pop(stackNumber: Int) -> Element? {
+let startIndex = (stackNumber - 1) * stackSize  
+guard topIndexies[stackNumber - 1] > startIndex else {
+print("cannot pop to stack")
+return nil
+}
+let value = stack [topIndexies[stackNumber - 1]]
+topIndexies[stackNumber - 1] -= 1
+return value
+}
+
+}
+
+var tripleStack = TripleStack<String>(stackSize: 2, initialValue: "0")
+tripleStack.push(item: "1.1", stackNumber: 1)
+tripleStack.push(item: "1.2", stackNumber: 1)
+
+tripleStack.push(item: "2.1", stackNumber: 2)
+tripleStack.push(item: "3.1", stackNumber: 3)
+print("pop from 1: \(tripleStack.pop(stackNumber: 1))")
+print("pop from 1: \(tripleStack.pop(stackNumber: 1))")
+print("pop from 1: \(tripleStack.pop(stackNumber: 1))")
+```swift
+
 # Queue
 
 - A Queue is a linear structure that follows a particular order in which the operations are performed. The order is First In First Out (FIFO). A good example of a queue is any queue of consumers for a resource where the consumer that came first is served first. The difference between stacks and queues is in removing. In a stack we remove the item the most recently added; in a queue, we remove the item the least recently added.
