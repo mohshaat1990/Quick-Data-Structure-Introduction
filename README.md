@@ -172,7 +172,8 @@ tripleStack.push(item: "3.1", stackNumber: 3)
 print("pop from 1: \(tripleStack.pop(stackNumber: 1))")
 print("pop from 1: \(tripleStack.pop(stackNumber: 1))")
 print("pop from 1: \(tripleStack.pop(stackNumber: 1))")
-```swift
+
+```
 
 # Queue
 
