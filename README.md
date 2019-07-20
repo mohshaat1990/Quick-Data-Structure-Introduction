@@ -104,6 +104,18 @@ public struct Stack<T> {
 
 var stack = Stack(array:[1,2,3,4,5])
 ```
+### to initalize stack like array 
+- use ExpressibleByArrayLiteral protcol 
+```swift
+extension Stack : ExpressibleByArrayLiteral {
+public init(arrayLiteral: T...) {
+for element in arrayLiteral {
+self.push(element:element )
+}
+}
+}
+var stack:Stack = [5,4,3,2,1,-1]
+```swift
 ### Descripe how you could use asingle array to implement three stacks
 
 ```swift
