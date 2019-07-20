@@ -332,6 +332,53 @@ print(stacks.pop(index:1))
 print(stacks.pop(index:1))
 
 ```
+### Sortable Stack 
+```swift
+public class SortableStack<T:Comparable> {
+var array = [T]()
+init(array:[T]) {
+self.array = array
+}
+
+public var isEmpty : Bool{
+return array.isEmpty
+}
+
+public var count : Int {
+return array.count
+}
+
+public  func push(element : T) {
+array.append(element)
+}
+
+public  func pop() -> T? {
+return array.popLast()
+}
+
+public var top : T? {
+return array.last
+}
+}
+extension SortableStack {
+public  func sort() {
+var stackPlaceHolders = SortableStack<T>(array:[])
+while top != nil , let x = top {
+pop()
+while  stackPlaceHolders.top != nil , let y = stackPlaceHolders.top , y > x {
+stackPlaceHolders.pop()
+push(element:y)
+}
+stackPlaceHolders.push(element:x)
+}
+self.array = stackPlaceHolders.array
+}
+}
+
+var stack = SortableStack(array:[5,4,3,2,1])
+stack.sort()
+print("Stack\(stack.array)")
+```
 # Queue
 
 - A Queue is a linear structure that follows a particular order in which the operations are performed. The order is First In First Out (FIFO). A good example of a queue is any queue of consumers for a resource where the consumer that came first is served first. The difference between stacks and queues is in removing. In a stack we remove the item the most recently added; in a queue, we remove the item the least recently added.
