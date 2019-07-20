@@ -365,6 +365,37 @@ public struct Queue<T> {
     }
 }
 ```
+####  Implement a MyQueue class which implements a queue using two stacks.
+```swift
+class MyQueue<T> {
+private var stack = Stack<T>()
+private var placeHoldersStack = Stack<T>()
+func enqueue(item: T) {
+while stack.top != nil {
+placeHoldersStack.push(element:stack.top!)
+stack.pop()
+}
+stack.push(element:item )
+while placeHoldersStack.top != nil {
+stack.push(element:placeHoldersStack.top!)
+placeHoldersStack.pop()
+}
+}
+func dequeue() -> T? {
+let top = stack.top
+stack.pop()
+return top
+}
+}
+var queue = MyQueue<Int>()
+
+for i in 0..<5 {
+queue.enqueue(item: i)
+}
+for i in 0..<5 {
+print(queue.dequeue())
+}
+```
 # Linked List 
 
 - Linked lists have several advantages over arrays. Elements can be inserted into linked lists indefinitely, while an array will eventually either fill up or need to be resized, an expensive operation that may not even be possible if memory is fragmented. Similarly, an array from which many elements are removed may become wastefully empty or need to be made smaller.
