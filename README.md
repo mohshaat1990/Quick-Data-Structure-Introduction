@@ -175,6 +175,58 @@ print("pop from 1: \(tripleStack.pop(stackNumber: 1))")
 
 ```
 
+### How would you design a stack which, in addition to push and pop, has a function min which returns the minimum element? Push, pop and min should all operate in 0(1) time.
+
+```swift
+import Foundation
+
+public struct Stack<T:Comparable> {
+fileprivate var array = [T]()
+fileprivate var minArray = [T]()
+public var isEmpty : Bool{
+return array.isEmpty
+}
+
+public var count : Int {
+return array.count
+}
+
+public func min() -> T {
+return minArray.last!
+} 
+
+public mutating func push(element : T) {
+array.append(element)
+if !minArray.isEmpty && element > min() {
+return
+}
+minArray.append(element)
+}
+
+public mutating func pop() -> T? {
+if let top = top, top == min() {
+minArray.popLast()
+}  
+return array.popLast()
+}
+
+public var top : T? {
+return array.last
+}
+}
+extension Stack : ExpressibleByArrayLiteral {
+public init(arrayLiteral: T...) {
+for element in arrayLiteral {
+self.push(element:element )
+}
+}
+}
+
+var stack:Stack = [5,4,3,2,1,-1]
+print(stack.min())
+
+```
+
 # Queue
 
 - A Queue is a linear structure that follows a particular order in which the operations are performed. The order is First In First Out (FIFO). A good example of a queue is any queue of consumers for a resource where the consumer that came first is served first. The difference between stacks and queues is in removing. In a stack we remove the item the most recently added; in a queue, we remove the item the least recently added.
