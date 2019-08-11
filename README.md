@@ -1166,6 +1166,42 @@ return false
 }
 }
 ```
+## Binary Tree IS Balanced
+- To check if a tree is height-balanced, get the height of left and right subtrees. Return true if difference between heights is not more than 1 and left and right subtrees are balanced, otherwise return false.
+```swift
+extension BinaryNode {
+func isBalanced(root : BinaryNode<Element>?)-> Bool {
+if root == nil {
+return true
+}
+var lh =  height(root: root!.leftChild)
+var rh =  height(root: root!.rightChild)
+if (abs(lh - rh) <= 1) {
+return true
+} else {
+return false
+}
+}
+func height(root: BinaryNode<Element>?) -> Int {
+if root == nil {
+return 0
+}
+return 1 + max(height(root: root!.leftChild),height(root: root!.rightChild))
+}
+}
+
+let binaryNode1 = BinaryNode(1)
+let binaryNode2 = BinaryNode(2)
+let binaryNode3 = BinaryNode(3)
+let binaryNode4 = BinaryNode(4)
+let binaryNode5 = BinaryNode(5)
+binaryNode1.leftChild = binaryNode2
+binaryNode1.rightChild = binaryNode3
+binaryNode2.leftChild = binaryNode4
+//binaryNode4.leftChild = binaryNode5
+print(binaryNode1.isBalanced(root:binaryNode1))
+```
+
 ## Binary Search Tree Removing an Item 
 
 ### Case 1: Remove Leaf node
@@ -1198,6 +1234,8 @@ the BST, this is the leftmost node of the right subtree:
 ![Screen Shot 2019-03-15 at 1 17 03 AM](https://user-images.githubusercontent.com/11280137/54397698-0dc21880-46c0-11e9-8aaf-0ead70595c01.png)
 
 ![Screen Shot 2019-03-15 at 1 17 38 AM](https://user-images.githubusercontent.com/11280137/54397723-229eac00-46c0-11e9-9740-5357722dda8a.png)
+
+
 
 - # Heap (Reference RayWenderlish )
 
