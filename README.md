@@ -21,6 +21,7 @@
 - ## Binary Search Tree
 
 - ## Heap
+- ## Graph
 
 # Introduction
 
@@ -1371,4 +1372,128 @@ siftDown(elementAtIndex: childIndex)
 }
 
 var heap = Heap(elements: [3, 2, 8, 5, 0], priorityFunction: >)
+```
+# Graph
+
+- graph is a set of vertices and vertices connected with each other by edges 
+
+![undirectedgraph](https://user-images.githubusercontent.com/11280137/63216570-2e8f0e00-c137-11e9-94ef-700c80a6c0bb.png)
+
+## Weighted Graph
+
+- where each edge has a numerical value.
+- Imagine a network that shows varying routes for flights. Let the vertices represent the cities and the edges represent a possible route from city to city. Now you can associate a weight to every edge (example price).
+
+![graph-1](https://user-images.githubusercontent.com/11280137/63216608-00f69480-c138-11e9-90ff-2024dbf074d7.png)
+
+## Directed and Undirected Graphs
+
+![Screen Shot 2019-08-17 at 9 45 54 PM](https://user-images.githubusercontent.com/11280137/63216633-677bb280-c138-11e9-8489-327a847a1fc7.png)
+
+## Representing a Graph
+- The two common ways to represent a graph is through an 
+   (1) adjacency matrix 
+   (2) adjacency list
+
+## adjacency List
+- The basic idea of an adjacency list is you store every single vertex. Each vertex will hold an adjacency list. This describes the outgoing edges.
+![Screen Shot 2019-08-17 at 10 32 40 PM](https://user-images.githubusercontent.com/11280137/63217018-00adc780-c13f-11e9-85a7-8df03e656544.png)
+
+- The adjacency list below describes the flight network graph above.
+
+![Screen Shot 2019-08-17 at 10 33 46 PM](https://user-images.githubusercontent.com/11280137/63217026-1fac5980-c13f-11e9-9f4e-a2b891d19294.png)
+
+- You can develop the adjacency list in many different ways. A few popular approaches are:
+
+### Storing an array of arrays. The outer array represents vertices, providing an index. The inner array contains edges.
+### Storing an array of linked-lists. With this approach, each index in the array represents a vertex. Each value in the array stores a linked-list. This is ideal if you need fast insertion or deletion times.
+### Storing a dictionary of arrays. Each key in the dictionary is a vertex, and each value is the corresponding array of edges.
+
+```swift
+import UIKit
+
+class Vertex<Element: Equatable> {
+var value: Element
+private(set) var adjacentEdges:[DirectedEdge<Element>] = []
+init(_ value: Element) {
+self.value = value
+}
+
+func addEdge(_ edge: DirectedEdge<Element>) {
+self.adjacentEdges.append(edge)
+}
+
+func edgeForDestination(_ destination: Vertex<Element>) -> DirectedEdge<Element>? {
+return adjacentEdges.filter { $0.destination == destination }.first
+}
+}
+extension Vertex: Equatable {
+static func ==(lhs: Vertex, rhs: Vertex) -> Bool {
+return lhs.value == rhs.value && lhs.adjacentEdges == rhs.adjacentEdges
+}
+}
+
+class DirectedEdge<Element: Equatable> {
+var source: Vertex<Element>
+var destination: Vertex<Element>
+var weight: Double
+
+init(source: Vertex<Element>, destination: Vertex<Element>, weight: Double) {
+self.source = source
+self.destination = destination
+self.weight = weight
+}
+
+}
+extension DirectedEdge: Equatable {
+static func ==(lhs: DirectedEdge, rhs: DirectedEdge) -> Bool {
+return lhs.source == rhs.source &&
+lhs.destination == rhs.destination &&
+lhs.weight == rhs.weight
+}
+}
+
+class EdgeWeightedDigraph<Element: Equatable> {
+private(set) var vertices: [Vertex<Element>] = []
+
+func addVertex(_ vertex: Vertex<Element>) {
+vertices.append(vertex)
+}
+func addEdge(source: Vertex<Element>, destination: Vertex<Element>, weight: Double) {
+
+// If we find an existing edge, just update the weight.
+if let existingEdge = source.edgeForDestination(destination) {
+existingEdge.weight = weight
+} else {
+let newEdge = DirectedEdge<Element>(source: source, destination: destination, weight: weight)
+source.addEdge(newEdge)
+}
+}
+}
+
+let dublin = Vertex<String>("Dublin")
+let london = Vertex<String>("London")
+let paris = Vertex<String>("Paris")
+let amsterdam = Vertex<String>("Amsterdam")
+let montreal = Vertex<String>("Montreal")
+let sanFrancisco = Vertex<String>("San Francisco")
+let graph = EdgeWeightedDigraph<String>()
+graph.addVertex(dublin)
+graph.addVertex(london)
+graph.addVertex(paris)
+graph.addVertex(amsterdam)
+graph.addVertex(montreal)
+graph.addVertex(sanFrancisco)
+graph.addEdge(source: dublin, destination: london, weight: 20)
+graph.addEdge(source: dublin, destination: amsterdam, weight: 25)
+graph.addEdge(source: dublin, destination: paris, weight: 35)
+graph.addEdge(source: london, destination: paris, weight: 10)
+graph.addEdge(source: london, destination: montreal, weight: 200)
+graph.addEdge(source: london, destination: sanFrancisco, weight: 500)
+graph.addEdge(source: paris, destination: amsterdam, weight: 10)
+graph.addEdge(source: paris, destination: sanFrancisco, weight: 400)
+graph.addEdge(source: amsterdam, destination: montreal, weight: 300)
+graph.addEdge(source: amsterdam, destination: sanFrancisco, weight: 450)
+graph.addEdge(source: montreal, destination: sanFrancisco, weight: 200)
+graph.addEdge(source: sanFrancisco, destination: dublin, weight: 700)
 ```
