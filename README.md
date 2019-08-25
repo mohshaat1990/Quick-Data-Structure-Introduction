@@ -1497,3 +1497,17 @@ graph.addEdge(source: amsterdam, destination: sanFrancisco, weight: 450)
 graph.addEdge(source: montreal, destination: sanFrancisco, weight: 200)
 graph.addEdge(source: sanFrancisco, destination: dublin, weight: 700)
 ```
+## is There is a Route Between Two Vertices
+
+```swift
+func findRouteBetweenTwoVertix(source: Vertex<Element> , destination: Vertex<Element> ) -> Bool {
+for edge in source.adjacentEdges {
+if edge.destination == destination {
+return true
+}
+return  findRouteBetweenTwoVertix(source:  edge.destination , destination: destination )
+}
+return false 
+}
+}
+```
